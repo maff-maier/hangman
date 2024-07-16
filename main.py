@@ -156,7 +156,7 @@ class Game:
             
         return random.choice(seq=words).replace('\n', '')
 
-    def play(self):
+    def play(self) -> None:
         while True:
             if (inp := TextManager.print_control_menu()) != 'н' and inp != 'в':
                 continue
@@ -190,13 +190,13 @@ class Game:
                     mistakes += 1
 
                 used.add(letter)
+                
+            if mistakes == mistakes_limit:
+                TextManager.lose_message()
             else:
-                if mistakes == mistakes_limit:
-                    TextManager.lose_message()
-                else:
-                    TextManager.win_message()
-                    
-                TextManager.print_hidden_word(word=word_mask.get_hidden_word())
+                TextManager.win_message()
+                
+            TextManager.print_hidden_word(word=word_mask.get_hidden_word())
                     
 
 

@@ -108,15 +108,15 @@ class TextManager:
         print(f'Загаданное слово: {word}\n')
 
     @staticmethod
-    def lose_message() -> None:
+    def print_lose() -> None:
         print('\nСожалеем, Вы проиграли!')
 
     @staticmethod
-    def win_message() -> None:
+    def print_win() -> None:
         print('\nПоздравляем! Вы выиграли!')
 
     @staticmethod
-    def file_not_found() -> None:
+    def print_file_not_found() -> None:
         print('Файл с указанным именем не найден. Проверьте правильность названия или целостность файлов.')
 
 
@@ -206,9 +206,9 @@ class Game:
                 used.add(letter)
 
             if mistakes == mistakes_limit:
-                TextManager.lose_message()
+                TextManager.print_lose()
             else:
-                TextManager.win_message()
+                TextManager.print_win()
 
             TextManager.print_hidden_word(word=word_manager.get_hidden_word())
 
@@ -217,7 +217,7 @@ class Game:
             with open(file=file, mode='r', encoding='utf-8') as file:
                 return file.readlines()
         except FileNotFoundError:
-            TextManager.file_not_found()
+            TextManager.print_file_not_found()
             exit(1)
 
     def __pick_word(self) -> str:

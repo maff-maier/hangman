@@ -177,10 +177,10 @@ class Game:
             mistakes_limit = 6
             used = set()
 
-            word_mask = WordManager(word=self.__pick_word())
+            word_manager = WordManager(word=self.__pick_word())
 
-            while mistakes < mistakes_limit and '_' in word_mask.get_mask():
-                TextManager.print_stage(mask=word_mask.get_mask(
+            while mistakes < mistakes_limit and '_' in word_manager.get_mask():
+                TextManager.print_stage(mask=word_manager.get_mask(
                 ), stage=mistakes, limit=mistakes_limit, used=used)
 
                 letter = ''
@@ -194,8 +194,8 @@ class Game:
                     if Validator.is_valid_char(letter):
                         break
 
-                if word_mask.is_letter_in_word(letter=letter):
-                    word_mask.reveal_letter(letter=letter)
+                if word_manager.is_letter_in_word(letter=letter):
+                    word_manager.reveal_letter(letter=letter)
                 else:
                     mistakes += 1
 
@@ -206,7 +206,7 @@ class Game:
             else:
                 TextManager.win_message()
 
-            TextManager.print_hidden_word(word=word_mask.get_hidden_word())
+            TextManager.print_hidden_word(word=word_manager.get_hidden_word())
 
     def __load_words(self, file: str) -> list[str]:
         try:

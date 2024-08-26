@@ -176,12 +176,13 @@ class Game:
                     break
                 case _:
                     continue
+                
+            word_manager = WordManager(word=self.__pick_word())
 
             mistakes = 0
-            mistakes_limit = 6
+            mistakes_limit = 6 if len(word_manager.get_hidden_word()) <= 10 else 8
             used = set()
 
-            word_manager = WordManager(word=self.__pick_word())
 
             while mistakes < mistakes_limit and '_' in word_manager.get_mask():
                 TextManager.print_stage(mask=word_manager.get_mask(
@@ -190,13 +191,13 @@ class Game:
                 letter = ''
                 while True:
                     letter = input(TextManager.get_choice_letter()).lower()
+                    
+                    if Validator.is_valid_char(letter):
+                        break
 
                     if letter in used:
                         TextManager.print_letter_already_used()
                         continue
-
-                    if Validator.is_valid_char(letter):
-                        break
 
                 if word_manager.is_letter_in_word(letter=letter):
                     word_manager.reveal_letter(letter=letter)

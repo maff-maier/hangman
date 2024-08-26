@@ -70,11 +70,6 @@ class TextManager:
         """,
     ]
 
-    @classmethod
-    def print_control_menu(cls) -> str:
-        cls.print_options()
-        return input('Ваш выбор: ').lower()
-
     @staticmethod
     def print_options() -> None:
         print('Выберите действие:\n\n(н) Новая игра\n(в) Выйти')
@@ -82,6 +77,10 @@ class TextManager:
     @staticmethod
     def get_choice_letter() -> str:
         return 'Введите букву: '
+
+    @staticmethod
+    def get_menu_choice() -> str:
+        return 'Ваш выбор: '
 
     @classmethod
     def print_gallows(cls, stage: int) -> None:
@@ -168,10 +167,15 @@ class Game:
 
     def play(self) -> None:
         while True:
-            if (inp := TextManager.print_control_menu()) != Commands.START.value and inp != Commands.END.value:
-                continue
-            elif inp == Commands.END.value:
-                break
+            TextManager.print_options()
+
+            match (inp := input(TextManager.get_menu_choice()).lower()):
+                case Commands.START.value:
+                    pass
+                case Commands.END.value:
+                    break
+                case _:
+                    continue
 
             mistakes = 0
             mistakes_limit = 6

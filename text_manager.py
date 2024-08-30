@@ -193,6 +193,10 @@ class InGameTextManager(ABC):
     def _print_hidden_word_mask(self, word: str) -> None:
         pass
 
+    @abstractmethod
+    def print_invalid_character(self) -> None:
+        pass
+
 
 class RuInGameTextManager(InGameTextManager):
     def _print_mistakes_info(self, mistakes: int, limit: int) -> None:
@@ -218,6 +222,9 @@ class RuInGameTextManager(InGameTextManager):
     def _print_hidden_word_mask(self, mask: str) -> None:
         print(f'{mask}')
 
+    def print_invalid_character(self) -> None:
+        print('Некорретный ввод! Повторите попытку!')
+
 
 class EnInGameTextManager(InGameTextManager):
     def _print_mistakes_info(self, mistakes: int, limit: int) -> None:
@@ -241,6 +248,9 @@ class EnInGameTextManager(InGameTextManager):
 
     def _print_hidden_word_mask(self, mask: str) -> None:
         print(f'{mask}')
+
+    def print_invalid_character(self) -> None:
+        print('Invalid character! Please try again!')
 
 
 class TextManagerFactory(ABC):
@@ -329,6 +339,9 @@ class GameTextManager:
     def print_stage(self, stage: int, limit: int, used: set[str], mask: str) -> None:
         self.in_game_text_manager.print_stage_info(
             stage=stage, limit=limit, used=used, mask=mask)
+
+    def print_invalid_character(self) -> None:
+        self.in_game_text_manager.print_invalid_character()
 
     def print_available_languages(self) -> None:
         self.menu_text_manager.print_available_languages()

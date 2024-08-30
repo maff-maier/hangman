@@ -107,6 +107,7 @@ class GameManager:
                 letter = text_manager.get_letter()
 
                 if not validator.validate(letter=letter):
+                    text_manager.print_invalid_character()
                     continue
 
                 if letter in used:

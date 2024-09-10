@@ -1,7 +1,7 @@
 import random
 from enum import Enum
 
-from text_manager import GameTextManager, get_text_manager_factory
+from text_managers.game import GameTextManager, get_text_manager_factory
 from validators import ValidatorManager
 
 

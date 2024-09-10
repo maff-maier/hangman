@@ -2,7 +2,7 @@ import random
 from enum import Enum
 
 from text_managers.game import GameTextManager, get_text_manager_factory
-from validators import ValidatorManager
+from validators.manager import ValidatorManager
 
 
 class WordManager:
